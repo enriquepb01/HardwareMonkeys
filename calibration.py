@@ -2,26 +2,24 @@ import numpy as np
 import cv2
 import cv2.aruco as aruco
 import matplotlib.pyplot as plt
+from picamera.array import PiRGBArray
+from picamera import PiCamera
 
 class Calibration:
     def __init__(self):
-        # self.cap = cv2.VideoCapture(0)
-        index = 0
-        while True:
-            self.cap = cv2.VideoCapture(index)
-            if self.cap.read()[0]:
-                break
-            self.cap.release()
-            index += 1
+        self.camera = PiCamera()
+        self.rawCapture = PiRGBArray(self.camera)
     
     def find_corners(self):
-        ret, im = self.cap.read()
+        # ret, im = self.cap.read()
+        self.camera.capture(self.rawCapture, format="rgb")
+        im = self.rawCapture.array
 
         ## DEBUG ##
         # im = cv2.imread('test_board.jpg')
         ## END DEBUG ##
 
-        gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
+        gray = cv2.cvtColor(im, cv2.COLOR_RGB2GRAY)
 
         # find Aruco markers
         dictionary = aruco.getPredefinedDictionary(aruco.DICT_4X4_100)
