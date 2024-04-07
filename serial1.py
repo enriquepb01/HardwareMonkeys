@@ -15,7 +15,8 @@ ser.flush()
 
 # parameter: result form stockFish. Parsed into a string.
 def sendResultsToArduino(result):
-    ser.write(1)
+    while True:
+        ser.write(1)
     '''
     # code for reading input from Arduino. Uncomment if needed
     time.sleep(1)  # Wait for a second

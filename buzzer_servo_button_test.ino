@@ -100,6 +100,7 @@ void loop() {
   if (Serial.available() > 0) {
     receivedData = Serial.read();
     receivedInfo = 1;
+    lcd.setCursor(0, 1);
     lcd.print(receivedData);
     lcd.print("GOTCHU");
     delay(1000);
