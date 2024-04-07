@@ -32,6 +32,7 @@ def handle_eval(eval, last_eval):
         if (eval["value"] - last_eval["value"]  > 100): handle_move_type(MoveType.GOOD)
         elif (eval["value"] - last_eval["value"]  < -100): handle_move_type(MoveType.BAD)
         else: handle_move_type(MoveType.NEUTRAL)
+    elif (eval["type"] == "mate" and eval["value"] == 0): handle_move_type(MoveType.CHECKMATE)
     elif (eval["type"] == "mate" and last_eval["type"] == "mate"):
         if (eval["value"] < last_eval["value"]): handle_move_type(MoveType.GOOD)
         else: handle_move_type(MoveType.BAD)

@@ -36,23 +36,29 @@ class BoardCapture:
                 xmax = i+100
                 ymin = j
                 ymax = j+100
-                plt.imshow(transformed_image[xmin:xmax, ymin:ymax])
-                plt.show()
+                # plt.imshow(transformed_image[xmin:xmax, ymin:ymax])
+                # plt.show()
 
                 # check color of square and compare with red
-                color_found = 0
+                green_found = 0
+                red_found = 0
                 for row in transformed_image[xmin:xmax, ymin:ymax]:
                     for pixel in row:
                         if pixel[1] > pixel[0]+30 and pixel[1] > pixel[2]+30:
-                            color_found = 1
-                            break
+                            green_found += 1
+                            
                         if pixel[0] > pixel[1]+30 and pixel[0] > pixel[2]+30:
-                            color_found = 2
+                            red_found += 1
+                        
+                        if green_found > 9 or red_found > 9:
                             break
-                    if color_found:
-                        break
-
-                chess_board.append(color_found)
+                            
+                if green_found > 9:
+                    chess_board.append(1)
+                elif red_found > 9:
+                    chess_board.append(2)
+                else:
+                    chess_board.append(0)
 
         chess_board = np.reshape(chess_board, (8,8))
         return chess_board

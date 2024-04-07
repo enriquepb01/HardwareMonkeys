@@ -18,12 +18,20 @@ board = BoardCapture()
 white_move = True
 last_eval = {"type": "cp", "value": 0}
 while True:
-    input("Press enter after your move: ")
+    input("Press enter after " + "white" if white_move else "black" + " moves: ")
+    
     new_board = board.get_board_array(homography_mtx)
     print(new_board)
+
     move_string = move_from_arrays(last_board, new_board)
     print(move_string)
-    stockfish.make_moves_from_current_position([move_string])
+    
+    try:
+        stockfish.make_moves_from_current_position([move_string])
+    except:
+        print("Invalid move")
+        continue
+
     eval = stockfish.get_evaluation()
     print(eval)
 
