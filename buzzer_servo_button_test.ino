@@ -19,23 +19,34 @@ LiquidCrystal lcd(12, 11, 8, 7, 5, 3);
 int pos = 90;    // variable to store the servo position
 const int buzzer = 10;
 int buttonState = 0;
+unsigned long lastButtonPressTime = 0;
+unsigned long playTime;
 
 void setup() {
   myservo.attach(9);  // attaches the servo on pin 9 to the servo object
   pinMode(buzzer, OUTPUT);
   pinMode(BUTTON_PIN, INPUT_PULLUP);
   lcd.begin(16, 2);
-  lcd.print("OOOOHHH OOOHHH AHH AHHH!");
+  // lcd.print("OOOOHHH OOOHHH AHH AHHH!");
+  Serial.begin(9600);
+  playTime = millis() + 600000;
 }
 
 void loop() {
   lcd.setCursor(0, 1);
-  lcd.print(millis() / 1000);
+  lcd.print((playTime - millis()) / 1000); // print how much time left in game
+  lcd.setCursor(1,1);
+  lcd.print((millis() - lastButtonPressTime) / 1000); // count up to 30.
 
   byte press = digitalRead(BUTTON_PIN);
 
   if(press == LOW){
-    buttonState++;
+    lastButtonPressTime = millis();
+  }
+
+  if (millis() - lastButtonPressTime >= 30000 && lastButtonPressTime != 0) {
+    // Reset the timer
+    lastButtonPressTime = millis();
   }
   
 
@@ -73,5 +84,9 @@ void loop() {
     delay(15);                       // waits 15ms for the servo to reach the position
     }
     buttonState = 0;
+  }
+
+  if (Serial.available() > 0) {
+    char received = Serial.read();
   }
 }
