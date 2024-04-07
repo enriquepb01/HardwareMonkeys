@@ -18,9 +18,11 @@ LiquidCrystal lcd(12, 11, 8, 7, 5, 3);
 
 int pos = 90;    // variable to store the servo position
 const int buzzer = 10;
-int buttonState = 0;
+int rewardState = 0;
 unsigned long lastButtonPressTime = 0;
 unsigned long playTime;
+char receivedInfo = 0;
+char receivedData;
 
 void setup() {
   myservo.attach(9);  // attaches the servo on pin 9 to the servo object
@@ -47,10 +49,19 @@ void loop() {
   if (millis() - lastButtonPressTime >= 30000 && lastButtonPressTime != 0) {
     // Reset the timer
     lastButtonPressTime = millis();
+    rewardState = 2;
+  }
+
+  if (receivedInfo && receivedData == 1) {
+    rewardState = 1;
+  } else if (receivedInfo && receivedData == 2) {
+    rewardState = 2;
+  } else if (receivedInfo && receivedData == 3) {
+    rewardState = 3;
   }
   
 
-  if(buttonState == 1){
+  if(rewardState == 1){
   tone(buzzer, 440);
   delay(250);
   noTone(buzzer);
@@ -63,17 +74,17 @@ void loop() {
   tone(buzzer, 1100);
   delay(500);
   noTone(buzzer);
-  buttonState++;
+  rewardState = 0;
   }
 
-  if(buttonState == 3){
+  if(rewardState == 2){
     tone(buzzer, 90);
   delay(1000);
   noTone(buzzer);
-  buttonState++;
+  rewardState = 0;
   }
 
-  if(buttonState == 5){
+  if(rewardState == 3){
   for (pos = 90; pos >= 40; pos -= 1) { // goes from 0 degrees to 180 degrees
     // in steps of 1 degree
     myservo.write(pos);              // tell servo to go to position in variable 'pos'
@@ -83,10 +94,11 @@ void loop() {
     myservo.write(pos);              // tell servo to go to position in variable 'pos'
     delay(15);                       // waits 15ms for the servo to reach the position
     }
-    buttonState = 0;
+    rewardState = 0;
   }
 
   if (Serial.available() > 0) {
-    char received = Serial.read();
+    receivedData = Serial.read();
+    receivedInfo = 1;
   }
 }

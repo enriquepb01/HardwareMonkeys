@@ -18,8 +18,8 @@ board = BoardCapture()
 white_move = True
 last_eval = {"type": "cp", "value": 0}
 while True:
-    input("Press enter after " + "white" if white_move else "black" + " moves: ")
-    
+    input("Press enter after " + ("white" if white_move else "black") + " moves: ")
+
     new_board = board.get_board_array(homography_mtx)
     print(new_board)
 
