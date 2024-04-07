@@ -30,8 +30,8 @@ def handle_move_type(move_type):
 # Determine if the change since the last evaluation was good, bad, or neutral, and dispatch the appropriate action
 def handle_eval(eval, last_eval):
     if (eval["type"] == "cp" and last_eval["type"] == "cp"):
-        if (eval["value"] - last_eval["value"]  > 100): handle_move_type(MoveType.GOOD)
-        elif (eval["value"] - last_eval["value"]  < -100): handle_move_type(MoveType.BAD)
+        if (eval["value"] - last_eval["value"]  > 50): handle_move_type(MoveType.GOOD)
+        elif (eval["value"] - last_eval["value"]  < -50): handle_move_type(MoveType.BAD)
         else: handle_move_type(MoveType.NEUTRAL)
     elif (eval["type"] == "mate" and eval["value"] == 0): handle_move_type(MoveType.CHECKMATE)
     elif (eval["type"] == "mate" and last_eval["type"] == "mate"):
