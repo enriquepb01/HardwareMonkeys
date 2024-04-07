@@ -8,10 +8,13 @@
 */
 
 #include <Servo.h>
+#include <LiquidCrystal.h>
 #define BUTTON_PIN 4
 
 Servo myservo;  // create servo object to control a servo
 // twelve servo objects can be created on most boards
+
+LiquidCrystal lcd(12, 11, 8, 7, 5, 3);
 
 int pos = 90;    // variable to store the servo position
 const int buzzer = 10;
@@ -21,10 +24,13 @@ void setup() {
   myservo.attach(9);  // attaches the servo on pin 9 to the servo object
   pinMode(buzzer, OUTPUT);
   pinMode(BUTTON_PIN, INPUT_PULLUP);
-  
+  lcd.begin(16, 2);
+  lcd.print("OOOOHHH OOOHHH AHH AHHH!");
 }
 
 void loop() {
+  lcd.setCursor(0, 1);
+  lcd.print(millis() / 1000);
 
   byte press = digitalRead(BUTTON_PIN);
 
