@@ -47,7 +47,7 @@ class BoardCapture:
                         if pixel[1] > pixel[0]+30 and pixel[1] > pixel[2]+30:
                             green_found += 1
                             
-                        if pixel[0] > pixel[1]+30 and pixel[0] > pixel[2]+30:
+                        if pixel[0] > pixel[1]+50 and pixel[0] > pixel[2]+50:
                             red_found += 1
                         
                         if green_found > 9 or red_found > 9:
