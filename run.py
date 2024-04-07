@@ -20,9 +20,12 @@ last_eval = {"type": "cp", "value": 0}
 while True:
     input("Press enter after your move: ")
     new_board = board.get_board_array(homography_mtx)
+    print(new_board)
     move_string = move_from_arrays(last_board, new_board)
+    print(move_string)
     stockfish.make_moves_from_current_position([move_string])
     eval = stockfish.get_evaluation()
+    print(eval)
 
     if (white_move):
         handle_eval(eval, last_eval)
