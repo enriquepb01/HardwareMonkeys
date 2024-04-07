@@ -23,3 +23,5 @@ def sendResultsToArduino(result):
         line = ser.readline().decode('utf-8').rstrip()
         print(line)
     '''
+
+sendResultsToArduino("HAI")
