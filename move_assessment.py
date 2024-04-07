@@ -2,7 +2,7 @@ from consts import MoveType, init_array
 from stockfish import Stockfish
 
 def string_from_coords(coords):
-    return chr(104 - coords[1]) + str(8 - coords[0])
+    return chr(104 - coords[0]) + str(8 - coords[1])
 
 def move_from_arrays(prev_arr, post_arr):
     orig_posit = None
