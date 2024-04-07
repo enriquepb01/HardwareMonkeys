@@ -1,6 +1,5 @@
 import numpy as np
 import cv2
-import cv2.aruco as aruco
 import matplotlib.pyplot as plt
 from picamera.array import PiRGBArray
 from picamera import PiCamera
@@ -22,10 +21,11 @@ class Calibration:
         gray = cv2.cvtColor(im, cv2.COLOR_RGB2GRAY)
 
         # find Aruco markers
-        dictionary = aruco.getPredefinedDictionary(aruco.DICT_4X4_100)
-        parameters =  aruco.DetectorParameters()
-        detector = aruco.ArucoDetector(dictionary, parameters)
-        corners, ids, rejectedImgPoints = detector.detectMarkers(gray)
+        dictionary = cv2.aruco.Dictionary_get(cv2.aruco.DICT_5X5_250)
+        detectorParams = cv2.aruco.DetectorParameters_create()
+        corners, ids, rejectedImgPoints = cv2.aruco.detectMarkers(
+            gray, dictionary, parameters=detectorParams
+        )
         points = []
         if ids is not None:
             for i in range(len(ids)):
