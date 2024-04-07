@@ -5,13 +5,20 @@ import matplotlib.pyplot as plt
 
 class Calibration:
     def __init__(self):
-        self.cap = cv2.VideoCapture(0)
+        # self.cap = cv2.VideoCapture(0)
+        index = 0
+        while True:
+            self.cap = cv2.VideoCapture(index)
+            if self.cap.read()[0]:
+                break
+            self.cap.release()
+            index += 1
     
     def find_corners(self):
         ret, im = self.cap.read()
 
         ## DEBUG ##
-        im = cv2.imread('test_board.jpg')
+        # im = cv2.imread('test_board.jpg')
         ## END DEBUG ##
 
         gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)

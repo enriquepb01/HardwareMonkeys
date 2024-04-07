@@ -4,13 +4,19 @@ import matplotlib.pyplot as plt
 
 class BoardCapture:
     def __init__(self):
-        self.cap = cv2.VideoCapture(0)
+        index = 0
+        while True:
+            self.cap = cv2.VideoCapture(index)
+            if self.cap.read()[0]:
+                break
+            self.cap.release()
+            index += 1
 
     def get_board_array(self, homography_mtx):
-        # ret, im = self.cap.read()
+        ret, im = self.cap.read()
 
         ## DEBUG ##
-        im = cv2.imread('test_board.jpg')
+        # im = cv2.imread('test_board.jpg')
         ## END DEBUG ##
 
         im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
