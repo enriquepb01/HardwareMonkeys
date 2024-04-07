@@ -3,11 +3,13 @@ import cv2
 import matplotlib.pyplot as plt
 from picamera.array import PiRGBArray
 from picamera import PiCamera
+import time
 
 class Calibration:
     def __init__(self):
         self.camera = PiCamera()
         self.rawCapture = PiRGBArray(self.camera)
+        time.sleep(0.4)
     
     def find_corners(self):
         # ret, im = self.cap.read()
@@ -21,7 +23,7 @@ class Calibration:
         gray = cv2.cvtColor(im, cv2.COLOR_RGB2GRAY)
 
         # find Aruco markers
-        dictionary = cv2.aruco.Dictionary_get(cv2.aruco.DICT_5X5_250)
+        dictionary = cv2.aruco.Dictionary_get(cv2.aruco.DICT_4X4_100)
         detectorParams = cv2.aruco.DetectorParameters_create()
         corners, ids, rejectedImgPoints = cv2.aruco.detectMarkers(
             gray, dictionary, parameters=detectorParams
@@ -42,6 +44,8 @@ class Calibration:
         # plt.imshow(gray, cmap='gray')
         # plt.show()
         ## END DEBUG ##
+
+        self.camera.close()
 
         return points
 
