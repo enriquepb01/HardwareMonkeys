@@ -25,6 +25,7 @@ def handle_move_type(move_type):
         print("Neutral move")
     elif (move_type == MoveType.CHECKMATE):
         print("Checkmate!")
+        exit()
 
 # Determine if the change since the last evaluation was good, bad, or neutral, and dispatch the appropriate action
 def handle_eval(eval, last_eval):
