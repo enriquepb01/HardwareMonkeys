@@ -4,6 +4,7 @@ class MoveType(Enum):
     NEUTRAL = 0
     GOOD = 1
     BAD = 2
+    CHECKMATE = 3
 
 init_array = [
     [2, 2, 0, 0, 0, 0, 1, 1,],

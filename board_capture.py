@@ -3,17 +3,20 @@ import cv2
 import matplotlib.pyplot as plt
 from picamera.array import PiRGBArray
 from picamera import PiCamera
+import time
 
 class BoardCapture:
     def __init__(self):
-        self.camera = PiCamera()
-        self.rawCapture = PiRGBArray(self.camera)
-
+        pass
 
     def get_board_array(self, homography_mtx):
+        camera = PiCamera()
+        rawCapture = PiRGBArray(camera)
+        time.sleep(0.4)
         # ret, im = self.cap.read()
-        self.camera.capture(self.rawCapture, format="rgb")
-        im = self.rawCapture.array
+        camera.capture(rawCapture, format="rgb")
+        im = rawCapture.array
+        camera.close()
 
         ## DEBUG ##
         # im = cv2.imread('test_board.jpg')
