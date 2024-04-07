@@ -9,6 +9,11 @@ HackIOT 2024 Project
 
 `python3 -m venv env`
 
+On your device:
 `env\Scripts\activate`
+
+On raspberry pi:
+`source env/bin/activate`
+
 
 `pip3 install -r requirements.txt`
